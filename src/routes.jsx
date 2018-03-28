@@ -7,6 +7,8 @@ import {
   TitleModule,
   TitlePage,
   Module,
+  TableRow,
+  TableCel,
 } from 'components'
 
 
@@ -23,6 +25,13 @@ export default (
           <Button> Exemplo de botão </Button>
           </form>
         </Module>
+        <TableRow>
+          <TableCel title="Table 1" subitems={['item 1','item 1','item 1',]}/>
+          <TableCel title="Table 1" subitems={['item 1','item 1','item 1',]}/>
+          <TableCel title="Table 1" subitems={['item 1','item 1','item 1',]}/>
+          <TableCel title="Table 1" subitems={['item 1','item 1','item 1',]}/>
+        </TableRow>
+
       </div>)
     } />
     <Route path='/button' component={() => <Button> Exemplo de botão </Button>} />
