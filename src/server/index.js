@@ -1,15 +1,25 @@
 import 'babel-polyfill'
 import bodyParser from 'body-parser'
 import express from 'express'
+import http from 'http'
 import log from '../log'
 import appRenderer from './middleware/app-renderer'
 
+/*
+var express = require('express');
+var http = require('http');
+
+var app = express();
+var server = http.createServer(app);
+
+*/
 process.on('uncaughtException', (ex) => {
   log.error(ex)
   process.exit(1)
 })
 
 const app = express()
+const server = http.createServer(app)
 // Heroku requires you to use process.env.PORT
 const port = process.env.DEV_APP_PORT || process.env.PORT
 
@@ -28,6 +38,11 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(appRenderer)
-app.listen(port, () => {
+server.listen(port, () => {
   log.info(`Node app is running on port ${port}`)
 })
+
+export {
+  app,
+  server,
+}
