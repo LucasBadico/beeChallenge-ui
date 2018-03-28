@@ -1,6 +1,5 @@
 const webpack = require('webpack')
 const ManifestPlugin = require('webpack-manifest-plugin')
-const nodeExternals = require('webpack-node-externals')
 
 const DEBUG = process.env.NODE_ENV !== 'production'
 
@@ -22,37 +21,11 @@ if (!DEBUG) {
 
 const config = {
   entry: {
-    bundle: ['babel-polyfill', './src/ui/src/index.jsx']
+    bundle: ['babel-polyfill', './src/client/index.jsx']
   },
-  target: 'node',
-  externals: nodeExternals(),  
   module: {
     rules: [
       { test: /\.json$/, loader: 'json-loader' },
-      { test: /\.less$/, include: /styles/, loader: 'style!css!less' },
-      { test:  /\.scss$/,
-        use: [
-          {
-            loader: 'style-loader', // creates style nodes from JS strings
-          },
-          {
-            loader: 'css-loader', // translates CSS into CommonJS
-            options: {
-              camelCase: true,
-              importLoaders: 2,
-              localIdentName: '[local]__[hash:base64:6]',
-              modules: true,
-              sourceMap: true,
-            },
-          },
-          {
-            loader: 'postcss-loader', // translates CSS into CommonJS
-          },
-          {
-            loader: 'sass-loader', // compiles Sass to CSS
-          },
-        ],
-      },
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
@@ -73,7 +46,7 @@ const config = {
   output: {
     filename: outputFile,
     path: DEBUG ? '/' : assetsDir,
-    publicPath: '/assets/'
+    publicPath: '/ui/assets/'
   }
 }
 
