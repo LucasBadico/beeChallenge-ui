@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
+import { StyleSheet } from 'aphrodite'
 import errorCatcher from './error-catcher'
 import routes from '../routes'
 import Store from '../store'
@@ -12,7 +13,7 @@ window.addEventListener('unhandledrejection', (event) => { errorCatcher(event.re
 const store = new Store(browserHistory, window.INITIAL_STATE)
 const history = syncHistoryWithStore(browserHistory, store.data)
 
-// StyleSheet.rehydrate(window.RENDERED_CLASS_NAMES)
+StyleSheet.rehydrate(window.RENDERED_CLASS_NAMES)
 
 ReactDOM.render(
   <Router history={history} routes={routes} />,

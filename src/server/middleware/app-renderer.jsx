@@ -1,6 +1,7 @@
 import { renderToString } from 'react-dom/server'
 import { createMemoryHistory, match, RouterContext } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
+import { StyleSheetServer } from 'aphrodite'
 import routes from '../../routes'
 import React from 'react'
 import renderIndex from './render-index'
@@ -35,11 +36,12 @@ export default wrap(async (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
-      const html = renderToString(
-        <RouterContext {...renderProps} />
+      const { html, css } = StyleSheetServer.renderStatic(() => renderToString(
+          <RouterContext {...renderProps} />
         )
+      )
 
-      res.send(renderIndex(html, {}, assetMap, store.data))
+      res.send(renderIndex(html, css, assetMap, store.data))
     } else {
       res.status(404).send('Not found')
     }

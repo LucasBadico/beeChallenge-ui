@@ -1,12 +1,14 @@
 const webpack = require('webpack')
 const ManifestPlugin = require('webpack-manifest-plugin')
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 const DEBUG = process.env.NODE_ENV !== 'production'
 
 const plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`
-  })
+  }),
+  new ExtractTextPlugin("styles.css"),
 ]
 const assetsDir = process.env.ASSETS_DIR
 const assetMapFile = process.env.ASSETS_MAP_FILE
@@ -33,7 +35,31 @@ const config = {
         query: {
           cacheDirectory: DEBUG
         }
-      }
+      },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+            fallback: "style-loader",
+            use: [
+              {
+                loader: 'css-loader', // translates CSS into CommonJS
+                options: {
+                  camelCase: true,
+                  importLoaders: 2,
+                  localIdentName: '[local]__[hash:base64:6]',
+                  modules: true,
+                  sourceMap: true,
+                },
+              },
+              {
+                loader: 'postcss-loader', // translates CSS into CommonJS
+              },
+              {
+                loader: 'sass-loader', // compiles Sass to CSS
+              },
+            ]
+          }),
+      },
     ]
   },
   node: {
@@ -46,7 +72,7 @@ const config = {
   output: {
     filename: outputFile,
     path: DEBUG ? '/' : assetsDir,
-    publicPath: '/ui/assets/'
+    publicPath: '/assets/'
   }
 }
 
