@@ -8,7 +8,7 @@ export const TableCel = ({ title, value, subitems, buttonText }) => (
     <h3>{title}<span>R${value}</span></h3>
     <Button>{buttonText}</Button>      
     <ul>
-        {subitems.map(item => <li>{item}</li>	)}
+        {subitems.map((item, i) => <li key={i}>{item}</li>	)}
     </ul> 
   </div>
   );
