@@ -6,25 +6,32 @@ import {
   TextInput,
   TitleModule,
   TitlePage,
-  Module,
+  ModuleCel,
   TableRow,
   TableCel,
 } from 'components'
 
+import {
+  Calculator
+} from 'domains'
+
 
 export default (
   <Switch>
+    <Route path='/FaleMais' component={Calculator} />
+    
+
     <Route path='/hello' component={() =>(
       <div>
         <TitlePage>HELLO FROM REACT!</TitlePage>
-        <Module>
+        <ModuleCel>
           <form>
           <TitleModule> teste de titulo</TitleModule>
           <TextInput type="text" placeholder="Um exemplo de input"/>
           <TextInput type="text" placeholder="Um exemplo de input"/>
           <Button> Exemplo de botão </Button>
           </form>
-        </Module>
+        </ModuleCel>
         <TableRow>
           <TableCel title="Table 1" subitems={['item 1','item 1','item 1',]}/>
           <TableCel title="Table 1" subitems={['item 1','item 1','item 1',]}/>
