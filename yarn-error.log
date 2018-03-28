@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/badicomac/.nvm/versions/node/v8.10.0/bin/node /usr/local/bin/yarn test __tests__/server
+  /Users/badicomac/.nvm/versions/node/v8.10.0/bin/node /usr/local/bin/yarn dev
 
 PATH: 
   /Users/badicomac/.nvm/versions/node/v8.10.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
@@ -8321,7 +8321,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c jest --colors -b --verbose __tests__/server
+  Arguments: -c NODE_ENV=dev nf start -w --procfile ./dev-tools/Procfile.dev
   Directory: /Users/badicomac/Repositorios/beeChallenge-ui
   Output:
   

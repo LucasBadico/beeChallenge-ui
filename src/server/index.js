@@ -1,18 +1,13 @@
+// import 'ignore-styles'
 import 'babel-polyfill'
 import bodyParser from 'body-parser'
 import express from 'express'
 import http from 'http'
 import log from '../log'
 import appRenderer from './middleware/app-renderer'
+import { getAvailablePort } from 'utils'
 
-/*
-var express = require('express');
-var http = require('http');
 
-var app = express();
-var server = http.createServer(app);
-
-*/
 process.on('uncaughtException', (ex) => {
   log.error(ex)
   process.exit(1)

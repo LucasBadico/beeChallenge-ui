@@ -2,6 +2,12 @@
   "env": {
     "test": {
       "plugins": [
+        [
+          "ramda",
+          {
+            "useES": true
+          }
+        ],
         ["babel-plugin-reflective-import", {
           "testFolder": "__tests__",
           "srcFolder": "src"
@@ -29,6 +35,12 @@
     },
     "dev": {
       "plugins": [
+        [
+          "ramda",
+          {
+            "useES": true
+          }
+        ],
         "react-hot-loader/babel",
         "transform-es2015-modules-commonjs",
         ["react-element-info", {"prefix": "e2e"}],
@@ -52,6 +64,12 @@
     },
     "production":{
       "plugins": [
+        [
+          "ramda",
+          {
+            "useES": true
+          }
+        ],
         "babel-plugin-transform-inline-environment-variables",
         "transform-react-jsx",
         ["react-element-info", {"prefix": "e2e"}],
