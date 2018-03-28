@@ -22,6 +22,7 @@
             "alias": {
               "utils": "./src/utils",
               "components": "./src/components",
+              "domains": "./src/domains",
               "log": "./src/log"
             },
             "extensions": [".js", ".jsx"]
@@ -51,6 +52,7 @@
             "alias": {
               "utils": "./src/utils",
               "components": "./src/components",
+              "domains": "./src/domains",
               "log": "./src/log"
             },
             "extensions": [".js", ".jsx"]
@@ -81,6 +83,7 @@
             "alias": {
               "utils": "./src/utils",
               "components": "./src/components",
+              "domains": "./src/domains",
               "log": "./src/log"
             },
             "extensions": [".js", ".jsx"]
