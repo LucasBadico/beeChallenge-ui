@@ -1,0 +1,76 @@
+{
+  "env": {
+    "test": {
+      "plugins": [
+        ["babel-plugin-reflective-import", {
+          "testFolder": "__tests__",
+          "srcFolder": "src"
+        }],
+        ["babel-plugin-relative-import", {
+          "rootPathSuffix": "src"
+        }],
+        "transform-es2015-modules-commonjs",
+        [
+          "module-resolver", {
+            "root": ["./src"],
+            "alias": {
+              "utils": "./src/utils",
+              "log": "./src/log"
+            },
+            "extensions": [".js", ".jsx"]
+          }
+        ]
+      ],
+      "presets": [
+        ["es2015", {"modules": false}],
+        "stage-2",
+        "react"
+      ]
+    },
+    "dev": {
+      "plugins": [
+        "react-hot-loader/babel",
+        "transform-es2015-modules-commonjs",
+        ["react-element-info", {"prefix": "e2e"}],
+        [
+          "module-resolver", {
+            "root": ["./src"],
+            "alias": {
+              "utils": "./src/utils",
+              "log": "./src/log"
+            },
+            "extensions": [".js", ".jsx"]
+          }
+        ]
+      ],
+      "presets": [
+        ["es2015", {"modules": false}],
+        "stage-2",
+        "react"
+      ],
+      "retainLines": true
+    },
+    "production":{
+      "plugins": [
+        "babel-plugin-transform-inline-environment-variables",
+        "transform-react-jsx",
+        ["react-element-info", {"prefix": "e2e"}],
+        [
+          "module-resolver", {
+            "root": ["./src"],
+            "alias": {
+              "utils": "./src/utils",
+              "log": "./src/log"
+            },
+            "extensions": [".js", ".jsx"]
+          }
+        ]
+      ],
+      "presets": [
+        ["es2015", {"modules": false}],
+        "stage-2",
+        "react"
+      ]
+    }
+}
+}
