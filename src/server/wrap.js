@@ -6,5 +6,5 @@ export default (fn) =>
   (...args) =>
     fn(...args)
       .catch((ex) => {
-        log.error(ex)
+        console.error(ex)
       })
