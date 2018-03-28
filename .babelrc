@@ -21,6 +21,7 @@
             "root": ["./src"],
             "alias": {
               "utils": "./src/utils",
+              "components": "./src/components",
               "log": "./src/log"
             },
             "extensions": [".js", ".jsx"]
@@ -49,6 +50,7 @@
             "root": ["./src"],
             "alias": {
               "utils": "./src/utils",
+              "components": "./src/components",
               "log": "./src/log"
             },
             "extensions": [".js", ".jsx"]
@@ -78,6 +80,7 @@
             "root": ["./src"],
             "alias": {
               "utils": "./src/utils",
+              "components": "./src/components",
               "log": "./src/log"
             },
             "extensions": [".js", ".jsx"]
