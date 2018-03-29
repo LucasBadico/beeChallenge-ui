@@ -1,4 +1,4 @@
-import { StyleSheet } from 'aphrodite'
+import { StyleSheet } from 'aphrodite/no-important'
 
 const style = ({
     width,
@@ -6,6 +6,7 @@ const style = ({
     inline,
     table,
     absolute,
+    tooltip,
     maxWidth,
 }) => StyleSheet.create({
     module: {
@@ -24,6 +25,8 @@ const style = ({
         padding: `${formPadding || 40}px`,
         display: table ? 'table-cell' : 'block',
     },
-  
+    upperButton: {
+        display: tooltip ? 'block' : 'none',
+    },
 })
 export default style

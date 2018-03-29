@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import * as R from 'ramda' 
-import { css } from 'aphrodite'
+import { css } from 'aphrodite/no-important'
 import { connect } from 'react-redux'
 import log from 'log'
 import styles from './styles'

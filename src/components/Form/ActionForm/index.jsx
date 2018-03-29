@@ -1,19 +1,13 @@
 
 import React from 'react'
 import PropTypes from 'prop-types';
-import { css } from 'aphrodite'
+import { css } from 'aphrodite/no-important'
 import { connect } from 'react-redux'
-import styles from './styles'
+import log from 'log'
 
-const ActionWrapped = ({ component, onClick, validate, form }) => {
-    const validated = validate(form)
-    const style = styles(validated)
-    return (
-        <div className={css(style.module)}>
-                {validated ? component(onClick) : component()}
-        </div>
-    )
-}
+const ActionWrapped = ({ component, validProps, validate, form }) => (
+    validate(form) ? component(validProps) : component({ disabled: true, style: { cursor: 'not-allowed' } })
+)
 
 export const ActionForm = connect(
     ({ form }) => ({ form }),
@@ -22,8 +16,8 @@ export const ActionForm = connect(
   
   ActionWrapped.propTypes = {
     component: PropTypes.func.isRequired,
-    onClick: PropTypes.func,
-    validation: PropTypes.func,
+    validProps: PropTypes.object,
+    validate: PropTypes.func.isRequired,
     form: PropTypes.object,
 };
   

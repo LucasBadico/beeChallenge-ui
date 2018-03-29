@@ -1,35 +1,21 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { createEpicMiddleware, combineEpics } from 'redux-observable'
 import { routerReducer, routerMiddleware } from 'react-router-redux'
+import log from 'log'
 import * as reducers from './reducers'
-import * as epics from './epics'
+import {
+  forms,
+  buttlerWillOpenForm,
+  buttlerWillCloseForm,
+  buttlerShowTable,
+} from './epics'
 
-
-const PING = 'PING';
-const PONG = 'PONG';
-
-const ping = () => ({ type: PING });
-
-const pingEpic = action$ =>
-  action$.ofType(PING)
-    .delay(1000) // Asynchronously wait 1000ms then continue
-    .mapTo({ type: PONG });
-
-const pingReducer = (state = { isPinging: false }, action) => {
-  switch (action.type) {
-    case PING:
-      return { isPinging: true };
-
-    case PONG:
-      return { isPinging: false };
-
-    default:
-      return state;
-  }
-};
-
-
-const rootEpic = combineEpics(epics.forms, pingEpic)
+const rootEpic = combineEpics(
+  forms,
+  buttlerWillOpenForm,
+  buttlerWillCloseForm,
+  // buttlerShowTable,
+)
 const epicMiddleware = createEpicMiddleware(rootEpic)
 export function createReducer(initialState, actionHandlers) {
   return function reducer(state = initialState, action) {
@@ -46,7 +32,7 @@ export default class Store {
   constructor(history, initialState = {}) {
     this.data = createStore(
       combineReducers({
-        ...reducers, pingReducer,
+        ...reducers,
         routing: routerReducer,
       }),
       initialState,
