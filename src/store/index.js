@@ -4,14 +4,16 @@ import { routerReducer, routerMiddleware } from 'react-router-redux'
 import log from 'log'
 import * as reducers from './reducers'
 import {
-  forms,
+  openLeadOnNotFinded,
   buttlerWillOpenForm,
   buttlerWillCloseForm,
+  // clearNotFinded,
   buttlerShowTable,
 } from './epics'
 
 const rootEpic = combineEpics(
-  forms,
+  openLeadOnNotFinded,
+  // clearNotFinded,
   buttlerWillOpenForm,
   buttlerWillCloseForm,
   // buttlerShowTable,

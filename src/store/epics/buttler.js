@@ -26,7 +26,6 @@ export const buttlerWillOpenForm = (action$, store) => action$.ofType(WILL_OPEN_
 export const buttlerWillCloseForm = (action$, store) => action$.ofType(WILL_CLOSE_FORM)
    .map(action => {
        // put here some logic before closing form
-       console.log({action})
        const formToClose = action.form
        return ({ type: CLOSE_FORM, form: formToClose })
     })
