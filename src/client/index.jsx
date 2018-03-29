@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import { Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { StyleSheet } from 'aphrodite'
@@ -16,6 +17,8 @@ const history = syncHistoryWithStore(browserHistory, store.data)
 StyleSheet.rehydrate(window.RENDERED_CLASS_NAMES)
 
 ReactDOM.render(
-  <Router history={history} routes={routes} />,
+  <Provider store={store.data}>
+    <Router history={history} routes={routes} />
+  </Provider>,
   document.getElementById('mount')
 )

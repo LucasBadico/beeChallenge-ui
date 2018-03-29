@@ -1,41 +1,57 @@
 import React from 'react'
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { css } from 'aphrodite'
-import styles from './styles'
+import Select from 'react-select'
 
 import {
-    TableCel,
-    TableRow,
     TitlePage,
     TitleModule,
     ModuleCel,
     ModuleRow,
+    ActionForm,
+    Button,
 } from 'components'
 
-export const Calculator = ({ children, ...props }) => {
+import Result from './Result'
+import Calc from './Calc'
+import Lead from './Lead'
+import styles from './styles'
+
+export const Calculator = ({ form, dispatch }) => {
     return (
         <div>
             <ModuleRow>
-                <ModuleCel inline={true} maxWidth={40}>
+                <ModuleCel width="40%" table>
                     <TitlePage>Fale Mais</TitlePage>
                     <TitleModule> com a <b>BeePhonica!</b></TitleModule>
+                    <Lead />
                 </ModuleCel>
-                <ModuleCel inline={true} maxWidth={60}>
+                <ModuleCel width="60%" table>
                     <p>Na BeePhonica você pode falar 30, 60 ou 120 minutos sem pagar nada a mais por isso.</p>
                     <p>Use nossa calculadora para descobrir o quanto você vai economizar.</p>
+                    <Calc />
+                    <ActionForm
+                        validate={() => true}
+                        component={action => <Button onClick={action}>Calcule</Button>}
+                        action={console.log}
+                    />
                 </ModuleCel>
-            </ModuleRow>
-            <TableRow>
-                <TableCel title="Padrão" subitems={['item 1','item 1','item 1',]}/>
-                <TableCel title="Fale Mais 30" subitems={['item 1','item 1','item 1',]}/>
-                <TableCel title="Fale Mais 60" subitems={['item 1','item 1','item 1',]}/>
-                <TableCel title="Fale Mais 120" subitems={['item 1','item 1','item 1',]}/>
-            </TableRow>
+            </ModuleRow>   
+            <Result />
         </div>
     )
 }
-  
+
+
 Calculator.propTypes = {
-    children: PropTypes.node,
+    dispatch: PropTypes.func,
+    form: PropTypes.object,
 }
+
+const CalculatorDomain = connect(
+    ({ form }) => ({ form }),// usar outro reducer
+    (dispatch) => ({ dispatch })
+  )(Calculator)
   
+  export default CalculatorDomain
