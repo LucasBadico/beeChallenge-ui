@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 
 import {
@@ -16,11 +17,23 @@ import {
 } from 'domains'
 
 
+let App = ({ isPinging, ping }) => (
+  <div>
+    <h1>is pinging: {isPinging.toString()}</h1>
+    <button onClick={ping}>Start PING</button>
+  </div>
+);
+
+App = connect(
+  ({ pingReducer: { isPinging } }) => ({ isPinging }),
+  dispatch => ({ ping: () => dispatch({ type: 'PING' } )})
+)(App);
+
 export default (
   <Switch>
     <Route path='/FaleMais' component={Calculator} />
     
-
+    <Route path='/ping' component={App} />
     <Route path='/hello' component={() =>(
       <div>
         <TitlePage>HELLO FROM REACT!</TitlePage>
