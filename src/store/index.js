@@ -3,22 +3,25 @@ import { createEpicMiddleware, combineEpics } from 'redux-observable'
 import { routerReducer, routerMiddleware } from 'react-router-redux'
 import log from 'log'
 import * as reducers from './reducers'
+
 import {
   openLeadOnNotFinded,
   buttlerWillOpenForm,
   buttlerWillCloseForm,
-  // clearNotFinded,
   buttlerShowTable,
+  fetchService,
 } from './epics'
 
 const rootEpic = combineEpics(
   openLeadOnNotFinded,
-  // clearNotFinded,
   buttlerWillOpenForm,
   buttlerWillCloseForm,
+  fetchService,
   // buttlerShowTable,
 )
+
 const epicMiddleware = createEpicMiddleware(rootEpic)
+
 export function createReducer(initialState, actionHandlers) {
   return function reducer(state = initialState, action) {
     if (actionHandlers.hasOwnProperty(action.type)) {
@@ -28,6 +31,7 @@ export function createReducer(initialState, actionHandlers) {
     }
   }
 }
+
 // const composeEnhancers = window ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose : compose;
 
 export default class Store {

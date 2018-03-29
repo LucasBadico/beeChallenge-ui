@@ -1,10 +1,22 @@
 
 import { createReducer } from 'store'
-import { OPEN_FORM, CLOSE_FORM  } from 'store/actions'
+import {
+    OPEN_FORM,
+    CLOSE_FORM,
+    REQUESTED_DATA,
+} from 'store/actions'
 import log from 'log'
+
 const initial = {
     forms: {},
-    bucket: {},
+    defaultCost: {
+        '#origin':{
+            '#destination': 'value',
+        },
+        '011':{
+            '016': 1.9,
+        },
+    },
 }
 
 export default createReducer(initial, {
@@ -22,4 +34,5 @@ export default createReducer(initial, {
             [action.form]: false,
         }
     }),
+    [REQUESTED_DATA]: (state, action) => (log(action), state),
   })
