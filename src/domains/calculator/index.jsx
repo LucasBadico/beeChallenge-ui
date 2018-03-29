@@ -25,7 +25,7 @@ export const Calculator = ({ form, dispatch }) => {
                 <ModuleCel width="40%" table>
                     <TitlePage>Fale Mais</TitlePage>
                     <TitleModule> com a <b>BeePhonica!</b></TitleModule>
-                    <Lead />
+                    {/* <Lead /> */}
                 </ModuleCel>
                 <ModuleCel width="60%" table>
                     <p>Na BeePhonica você pode falar 30, 60 ou 120 minutos sem pagar nada a mais por isso.</p>

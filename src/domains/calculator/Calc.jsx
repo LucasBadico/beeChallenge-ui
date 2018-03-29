@@ -20,9 +20,9 @@ const Calc = () => (
         <div>
             <h4 className={css(styles.h4)}> DDD de origem</h4>
             <SelectInput
+                form="calculator"
                 name="origin"
-                schema="origin"
-                onChange={console.log}
+                field="origin"
                 options={[
                     { value: '011', label: '011' },
                     { value: '016', label: '016' },
@@ -34,8 +34,8 @@ const Calc = () => (
             <h4 className={css(styles.h4)}> DDD de destino</h4>
             <SelectInput
                 name="destination"
-                schema="origin"
-                onChange={console.log}
+                form="calculator"
+                field="destination"
                 options={[
                     { value: '011', label: '011' },
                     { value: '016', label: '016' },
@@ -45,7 +45,7 @@ const Calc = () => (
         </div>
         <div>
             <h4 className={css(styles.h4)}> Duração da chamada</h4>
-            <TextInput schema="" type="number" placeholder="Em minutos"/>
+            <TextInput form="calculator" field="totalTime" type="number" placeholder="Em minutos"/>
         </div>
         <ActionForm
             validate={() => false}

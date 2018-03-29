@@ -5,7 +5,7 @@ import { css } from 'aphrodite'
 import { connect } from 'react-redux'
 import styles from './styles'
 
-const ActionWrapper = ({ component, onClick, validate, form }) => {
+const ActionWrapped = ({ component, onClick, validate, form }) => {
     const validated = validate(form)
     const style = styles(validated)
     return (
@@ -18,9 +18,9 @@ const ActionWrapper = ({ component, onClick, validate, form }) => {
 export const ActionForm = connect(
     ({ form }) => ({ form }),
     (dispatch) => ({ dispatch })
-  )(ActionWrapper)
+  )(ActionWrapped)
   
-  ActionWrapper.propTypes = {
+  ActionWrapped.propTypes = {
     component: PropTypes.func.isRequired,
     onClick: PropTypes.func,
     validation: PropTypes.func,

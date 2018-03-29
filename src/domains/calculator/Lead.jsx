@@ -19,24 +19,24 @@ const Lead = () => (
         <p>Caso a o ddd que você procura não esteja na opções disponíveis, deixe seus dados para avisarmos quando disponibilizarmos.</p>
         <div>
             <h4 className={css(styles.h4)}> DDD de origem </h4>
-            <TextInput schema="origin" type="text" placeholder="No formato 011, 018"/>
+            <TextInput form="lead" field="origin" type="text" placeholder="No formato 011, 018"/>
         </div>
         <div>
             <h4 className={css(styles.h4)}> DDD de destino </h4>
-            <TextInput schema="destination" type="text" placeholder="No formato 011, 018"/>
+            <TextInput form="lead" field="destination" type="text" placeholder="No formato 011, 018"/>
         </div>
         <div>
             <h4 className={css(styles.h4)}> Deixe seu email </h4>
-            <TextInput schema="email" type="email" placeholder="Não enviaremos span, prometo"/>
+            <TextInput form="lead" field="email" type="email" placeholder="Não enviaremos span, prometo"/>
         </div>
         <div>
             <h4 className={css(styles.h4)}> Seu telefone </h4>
-            <TextInput schema="phone" type="tel" placeholder="Nem sms, dupla promessa"/>
+            <TextInput form="lead" field="phone" type="tel" placeholder="Nem sms, dupla promessa"/>
         </div>
 
         <div>
             <h4 className={css(styles.h4)}> Seu Nome </h4>
-            <TextInput schema="name" type="text" placeholder="Apenas agradecemos a preferência"/>
+            <TextInput form="lead" field="name" type="text" placeholder="Apenas agradecemos a preferência"/>
         </div>
         <ActionForm
             validate={() => true}
