@@ -8,10 +8,9 @@ const plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`
   }),
-  new ExtractTextPlugin("styles.css"),
 ]
-const assetsDir = process.env.ASSETS_DIR
-const assetMapFile = process.env.ASSETS_MAP_FILE
+const assetsDir = __dirname +  process.env.ASSETS_DIR
+const assetMapFile = __dirname +  process.env.ASSETS_MAP_FILE
 const outputFile = DEBUG ? '[name].js' : '[name].[chunkhash].js'
 
 if (!DEBUG) {
@@ -48,7 +47,7 @@ const config = {
   output: {
     filename: outputFile,
     path: DEBUG ? '/' : assetsDir,
-    publicPath: '/assets/'
+    publicPath: __dirname + '/assets/'
   }
 }
 
