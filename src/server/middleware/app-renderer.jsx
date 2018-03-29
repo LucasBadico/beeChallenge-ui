@@ -1,6 +1,7 @@
 import { renderToString } from 'react-dom/server'
 import { createMemoryHistory, match, RouterContext } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
+import { Provider } from 'react-redux'
 import { StyleSheetServer } from 'aphrodite'
 import routes from '../../routes'
 import React from 'react'
@@ -37,7 +38,9 @@ export default wrap(async (req, res) => {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
       const { html, css } = StyleSheetServer.renderStatic(() => renderToString(
+        <Provider store={store.data}>
           <RouterContext {...renderProps} />
+        </Provider>
         )
       )
 

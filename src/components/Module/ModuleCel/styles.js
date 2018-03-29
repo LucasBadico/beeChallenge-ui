@@ -1,19 +1,28 @@
 import { StyleSheet } from 'aphrodite'
 
-const style = ({ maxWidth, formPadding, inline }) => StyleSheet.create({
+const style = ({
+    width,
+    formPadding,
+    inline,
+    table,
+    absolute,
+    maxWidth,
+}) => StyleSheet.create({
     module: {
-        position: 'relative',
+        position: absolute ? 'absolute' : 'relative',
         background: '#ffffff',
-        maxWidth: !inline && `${maxWidth || 320}px`,
-        width: inline ? `${maxWidth}%` : '100%',
+        maxWidth: !table && maxWidth ?  maxWidth : undefined,
+        width: width || '100%',
         borderTop: '5px solid #33b5e5',
         boxShadow: '0 0 3px rgba(0, 0, 0, 0.1)',
         margin: '0 auto',
-        display: inline ? 'table-cell' : 'block'
+        zIndex: '10',
+        display: inline ? 'inline-block' :
+                 table ? 'table-cell' : 'block',
     },
     form: {
         padding: `${formPadding || 40}px`,
-        display: inline ? 'table-cell' : 'block'
+        display: table ? 'table-cell' : 'block',
     },
   
 })

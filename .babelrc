@@ -23,6 +23,7 @@
               "utils": "./src/utils",
               "components": "./src/components",
               "domains": "./src/domains",
+              "store": "./src/store",
               "log": "./src/log"
             },
             "extensions": [".js", ".jsx"]
@@ -53,6 +54,7 @@
               "utils": "./src/utils",
               "components": "./src/components",
               "domains": "./src/domains",
+              "store": "./src/store",
               "log": "./src/log"
             },
             "extensions": [".js", ".jsx"]
@@ -84,6 +86,7 @@
               "utils": "./src/utils",
               "components": "./src/components",
               "domains": "./src/domains",
+              "store": "./src/store",
               "log": "./src/log"
             },
             "extensions": [".js", ".jsx"]

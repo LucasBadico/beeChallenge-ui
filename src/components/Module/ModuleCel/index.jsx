@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { css } from 'aphrodite'
 import styles from './styles'
 
-export const ModuleCel = ({ inline, children, maxWidth, formPadding }) => {
-    const style = styles({inline, maxWidth, formPadding})
+export const ModuleCel = ({ children, ...props }) => {
+    const style = styles({...props})
     return (
     <div className={css(style.module)}>
         <div className={css(style.form)}>
@@ -17,6 +17,8 @@ export const ModuleCel = ({ inline, children, maxWidth, formPadding }) => {
 ModuleCel.propTypes = {
     children: PropTypes.node.isRequired,
     inline: PropTypes.bool,
+    table: PropTypes.bool,
+    width: PropTypes.string,
     maxWidth: PropTypes.number,
     formPadding: PropTypes.number,
 };

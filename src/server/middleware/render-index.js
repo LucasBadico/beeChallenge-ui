@@ -65,7 +65,8 @@ export default function renderIndex(html, css, assetMap, store) {
     
     #pricing-table h3 {
       font-size: 20px;
-      font-weight: normal;
+      font-weight: 600;
+      color: #11a9e9 !important;
       padding: 20px;
       margin: -20px -20px 50px -20px;
       background-color: #eee;
