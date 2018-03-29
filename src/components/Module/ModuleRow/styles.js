@@ -1,4 +1,4 @@
-import { StyleSheet } from 'aphrodite'
+import { StyleSheet } from 'aphrodite/no-important'
 
 const style = ({ maxWidth, formPadding, inline }) => StyleSheet.create({
     module: {

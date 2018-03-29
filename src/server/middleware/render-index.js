@@ -195,6 +195,43 @@ export default function renderIndex(html, css, assetMap, store) {
       zoom:1
     }
 
+    .toggle {
+      cursor: pointer;
+      position: absolute;
+      top: -0;
+      right: -0;
+      background: #33b5e5;
+      width: 30px;
+      height: 30px;
+      margin: -5px 0 0;
+      color: #ffffff;
+      font-size: 12px;
+      line-height: 30px;
+      text-align: center;
+    }
+    .toggle .tooltip {
+      position: absolute;
+      top: 10px;
+      left: -60px;
+      display: block;
+      background: rgba(0, 0, 0, 0.6);
+      width: auto;
+      padding: 5px;
+      font-size: 10px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    .toggle .tooltip:before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      right: -5px;
+      display: block;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 5px solid rgba(0, 0, 0, 0.6);
+    }
+
     ${css.content}
     </style>
     <script>
@@ -218,6 +255,7 @@ export default function renderIndex(html, css, assetMap, store) {
       // End Rollbar Snippet
     </script>
     <link rel="stylesheet" href="https://unpkg.com/react-select@1.2.1/dist/react-select.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     <div id="mount">${html}</div>

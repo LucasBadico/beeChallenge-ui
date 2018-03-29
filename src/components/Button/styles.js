@@ -1,4 +1,4 @@
-import { StyleSheet } from 'aphrodite'
+import { StyleSheet } from 'aphrodite/no-important'
 
 const style = StyleSheet.create({
   button: {
@@ -12,6 +12,12 @@ const style = StyleSheet.create({
     ':hover':{
         background: '#178ab4'
     },
+    ':focus':{
+      outline: 'none',
+    },
+    ':disabled':{
+      backgroundColor: '#ccc'
+    }
   },
 })
 export default style
