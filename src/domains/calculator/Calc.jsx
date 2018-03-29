@@ -46,6 +46,7 @@ const Calc = () => (
         <div>
             <h4 className={css(styles.h4)}> Duração da chamada</h4>
             <TextInput form="calculator" field="totalTime" type="number" placeholder="Em minutos"/>
+            <TextInput form="calculator" field="totalTime" type="number" placeholder="Em minutos"/>
         </div>
         <ActionForm
             validate={() => false}
