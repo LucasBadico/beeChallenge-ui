@@ -15,6 +15,7 @@ import {
 
 import {
     closeForm,
+    sendForm,
     NOT_FINDED_DDD,
 } from 'store/actions'
 
@@ -68,9 +69,9 @@ const CalcWrapped = ({ buttler, dispatch }) => {
         </div>
         <p className={css(styles.hint)}>* Preencha todos os campos.</p>
         <ActionForm
-            validate={(form) => false}
+            validate={(form) => true}
             component={props => <Button {...props}>Calcular</Button>}
-            validProps={{ onClick: log }}
+            validProps={{ onClick: () => dispatch(sendForm(FORM)) }}
         />
     </ModuleCel>
 )
