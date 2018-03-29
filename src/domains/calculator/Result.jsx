@@ -10,7 +10,7 @@ import {
 } from 'components'
 import styles from './styles'
 
-const Result = () => (
+const Result = ({ items }) => (
     <TableRow>
         <TableCel title="Padrão" subitems={['item 1','item 1','item 1',]}/>
         <TableCel title="Fale Mais 30" subitems={['item 1','item 1','item 1',]}/>
