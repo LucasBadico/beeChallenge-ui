@@ -3,15 +3,15 @@ const ManifestPlugin = require('webpack-manifest-plugin')
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 const DEBUG = process.env.NODE_ENV !== 'production'
-
 const plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`
   }),
 ]
-const assetsDir = __dirname +  process.env.ASSETS_DIR
-const assetMapFile = __dirname +  process.env.ASSETS_MAP_FILE
-const outputFile = DEBUG ? '[name].js' : '[name].[chunkhash].js'
+const assetsDir = process.env.ASSETS_DIR
+const assetMapFile = process.env.ASSETS_MAP_FILE
+const outputFile = '[name].js'
+// const outputFile = DEBUG ? '[name].js' : '[name].[chunkhash].js'
 
 if (!DEBUG) {
   plugins.push(new ManifestPlugin({

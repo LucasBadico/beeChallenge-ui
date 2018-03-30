@@ -78,6 +78,14 @@
         ],
         "babel-plugin-transform-inline-environment-variables",
         "transform-react-jsx",
+        "transform-es2015-modules-commonjs",
+        ["babel-plugin-reflective-import", {
+          "testFolder": "__tests__",
+          "srcFolder": "src"
+        }],
+        ["babel-plugin-relative-import", {
+          "rootPathSuffix": "src"
+        }],
         ["react-element-info", {"prefix": "e2e"}],
         [
           "module-resolver", {

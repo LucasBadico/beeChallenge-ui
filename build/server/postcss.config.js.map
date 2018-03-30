@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../src/postcss.config.js"],"names":["module","exports","plugins","require"],"mappings":"AAAA;AACAA,OAAOC,OAAP,GAAiB;AACbC,aAAS,CAACC,QAAQ,cAAR,CAAD;AADI,CAAjB","file":"postcss.config.js","sourcesContent":["// eslint-disable\nmodule.exports = {\n    plugins: [require('autoprefixer')],\n}\n"]}
