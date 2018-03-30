@@ -12,7 +12,7 @@ export function saveFormField(form, field, value) {
         value,
     }
 }
-
+// just say what form to send ex: calculator
 export function sendForm(form) {
     return {
         type: WILL_SEND_FORM,

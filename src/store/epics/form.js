@@ -1,5 +1,5 @@
 import Rx from 'rxjs'
-
+import * as R from 'ramda'
 import {
     WILL_SAVE_FORM_FIELD,
     SAVE_FORM_FIELD,
@@ -10,6 +10,7 @@ import {
 } from 'store/actions'
 
 import log from 'log'
+import { request } from 'http';
 
 // Caso tenha um valor tal ativa o outro formulario
 export const openLeadOnNotFinded = (action$, store) => action$.ofType(WILL_SAVE_FORM_FIELD)
@@ -23,54 +24,67 @@ export const openLeadOnNotFinded = (action$, store) => action$.ofType(WILL_SAVE_
         }
     })
 
-const fetchData = (body, url) => (log({body, url}), Rx.Observable.ajax({
-    url: `http://159.65.68.177/api${url}`,
-    method: 'POST',
+const host = process.env.NODE_ENV === 'production' ? '159.65.68.177' : 'localhost:3030'
+const POST = 'POST'
+const fetchData = (body, url, method) => Rx.Observable.ajax({
+    url: `http://${'159.65.68.177'}/api${url}`,
+    method: method,
     responseType: 'json',
     crossDomain: true,
-    withCredentials: true,
-    // createXHR: function () {
-    //     return new XMLHttpRequest();
-    //   },
     headers: {
         'Content-Type': 'application/json',
         'x-rxjs-is': 'Awesome And Trick >_<"',
     },
     body,
-}).pluck('data'))
+}).map(ajax => ({
+    data: R.path(['response'], ajax),
+    ...(method === POST ? { sendedData: R.path(['request', 'body'], ajax) } : {})
+}))
 
 export const fetchService = (action$, store) => action$.ofType(WILL_SEND_FORM)
     .debounceTime(500)
     .mergeMap(
         action => {
-            // if (action.form === 'calculator') {
-                const state = store.getState()
+            const state = store.getState()
+            if (action.form === 'calculator') {
+                // using the form name we can resolve all api calls,
+                const url = '/calculator/fale-mais'
+
+                // data needed to send
                 const {
                     origin,
                     destination,
                     totalTime,
                 } = state.form[action.form]
-                const costByMinute = state.buttler.defaultCost[origin][destination]
-                const url = '/calculator/fale-mais'
-                const mins = ['30']
-                
+                const costByMinute = R.last(state.buttler.price)[origin][destination]
+
+                const mins = ['30', '60', '120']
                 return Rx.Observable
                     .from(mins)
-                    .map(min => fetchData({
-                        costByMinute,
-                        totalTime,
-                        plan: `FaleMais${min}`,
-                    }, url))
+                    .map(min => fetchData(
+                        {
+                            costByMinute,
+                            totalTime,
+                            plan: `FaleMais${min}`,
+                        },
+                        url,
+                        POST,
+                    ))
                     .toArray()
                     .switchMap(requestArray => Rx.Observable.forkJoin(requestArray))
-                    .zip(mins)
                     .map(data => ({
                         type: REQUESTED_DATA,
-                        request: 'calculator',
+                        form: 'calculator',
+                        url,
                         data,
                     }))
-            // }
+            }
             
+            return {
+                type: REQUESTED_DATA,
+                request: 'untraced api call',
+                data: action,
+            }
         }
     )
 /*

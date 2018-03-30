@@ -47,7 +47,7 @@ const config = {
   output: {
     filename: outputFile,
     path: DEBUG ? '/' : assetsDir,
-    publicPath: __dirname + '/assets/'
+    publicPath: '/assets/'
   }
 }
 
