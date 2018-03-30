@@ -24,7 +24,7 @@ export const openLeadOnNotFinded = (action$, store) => action$.ofType(WILL_SAVE_
     })
 
 const fetchData = (body, url) => (log({body, url}), Rx.Observable.ajax({
-    url: `http://localhost:3030${url}`,
+    url: `http://159.65.68.177/api${url}`,
     method: 'POST',
     responseType: 'json',
     crossDomain: true,
