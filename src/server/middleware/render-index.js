@@ -263,7 +263,9 @@ export default function renderIndex(html, css, assetMap, store) {
       window.INITIAL_STATE = ${JSON.stringify(store.getState())}
       window.RENDERED_CLASS_NAMES = ${JSON.stringify(css.renderedClassNames)}
     </script>
-    <script src="/beeChallenge-ui/build/client/assets/${assetMap['bundle.js']}"></script>
+    <script src="${
+      process.env.NODE_ENV === 'production' ?
+      '/beeChallenge-ui/build/client/assets/' : '/assets/'}${assetMap['bundle.js']}"></script>
   </body>
 </html>
 `

@@ -1,4 +1,5 @@
 
+import * as R from 'ramda'
 import { createReducer } from 'store'
 import {
     OPEN_FORM,
@@ -9,14 +10,16 @@ import log from 'log'
 
 const initial = {
     forms: {},
-    defaultCost: {
-        '#origin':{
-            '#destination': 'value',
-        },
-        '011':{
-            '016': 1.9,
-        },
-    },
+    price: [
+            {
+            '#origin':{
+                '#destination': 'value',
+            },
+            '011':{
+                '016': 1.9,
+            },
+        }
+    ],
 }
 
 export default createReducer(initial, {
@@ -34,5 +37,13 @@ export default createReducer(initial, {
             [action.form]: false,
         }
     }),
-    [REQUESTED_DATA]: (state, action) => (log(action), state),
+    [REQUESTED_DATA]: (state, action) => (log(action, state), {
+        ...state,
+        [action.form]: [
+        ...(R.isNil(state[action.form]) ? [] : state[action.form]),
+        {
+            url: action.url,
+            data: action.data,
+        }]
+    }),
   })

@@ -26,7 +26,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // In development, we use webpack server
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {  
   app.use(express.static(process.env.PUBLIC_DIR, {
     maxAge: '180 days'
   }))
