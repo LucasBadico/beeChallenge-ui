@@ -6,14 +6,14 @@ import { fetchData } from 'utils'
 import log from 'log'
 
 import {
-    WILL_REQUESTED_DATA,
+    REQUEST_PENDING,
 } from 'store/const'
 
 const FetchWrapped = ({ dispatch, on, children, url, method, body }) => {
     const fetch = fetchData(url, method, body)
     fetch.subscribe(
         data => dispatch({
-            type: WILL_REQUESTED_DATA,
+            type: REQUEST_PENDING,
             on,
             url,
             data,

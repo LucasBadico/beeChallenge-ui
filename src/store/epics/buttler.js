@@ -4,14 +4,14 @@ import {
     WILL_OPEN_FORM,
     OPEN_FORM,
     WILL_CLOSE_FORM,
-    REQUESTED_DATA,
-    WILL_REQUESTED_DATA,
+    REQUEST_FULFILLED,
     CLOSE_FORM,
+    REQUEST_PENDING,
 } from '../const'
 
 import log from 'log'
 
-export const handlePrices = (action$, store) => action$.ofType(WILL_REQUESTED_DATA)
+export const handlePrices = (action$, store) => action$.ofType(REQUEST_PENDING)
     .map(action => {
         if (action.on === 'prices-raw') {
             const prices = R.pipe(
@@ -26,7 +26,7 @@ export const handlePrices = (action$, store) => action$.ofType(WILL_REQUESTED_DA
             )(action.data)
 
             return {
-                type: REQUESTED_DATA,
+                type: REQUEST_FULFILLED,
                 on: 'prices',
                 url: action.url,
                 data: prices
@@ -34,7 +34,7 @@ export const handlePrices = (action$, store) => action$.ofType(WILL_REQUESTED_DA
         }
         return {
             ...action,
-            type: REQUESTED_DATA,
+            type: REQUEST_FULFILLED,
         }
     })
 

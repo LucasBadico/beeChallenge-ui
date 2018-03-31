@@ -4,7 +4,7 @@ import { createReducer } from 'store'
 import {
     OPEN_FORM,
     CLOSE_FORM,
-    REQUESTED_DATA,
+    REQUEST_FULFILLED,
 } from 'store/const'
 import log from 'log'
 
@@ -37,7 +37,7 @@ export default createReducer(initial, {
             [action.form]: false,
         }
     }),
-    [REQUESTED_DATA]: (state, action) => ({
+    [REQUEST_FULFILLED]: (state, action) => ({
         ...state,
         [action.on]: [
         ...(R.isNil(state[action.on]) ? [] : state[action.on]),
