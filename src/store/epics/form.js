@@ -8,7 +8,7 @@ import {
     WILL_SAVE_FORM_FIELD,
     SAVE_FORM_FIELD,
     OPEN_FORM,
-    REQUESTED_DATA,
+    REQUEST_FULFILLED,
     NOT_FINDED_DDD,
     WILL_SEND_FORM,
     POST,
@@ -79,7 +79,7 @@ export const sendFormToService = (action$, store) => action$.ofType(WILL_SEND_FO
                     .toArray()
                     .switchMap(requestArray => Rx.Observable.forkJoin(requestArray))
                     .map(data => ({
-                        type: REQUESTED_DATA,
+                        type: REQUEST_FULFILLED,
                         on: 'calculator',
                         url,
                         data,
@@ -87,9 +87,18 @@ export const sendFormToService = (action$, store) => action$.ofType(WILL_SEND_FO
             }
             
             return {
-                type: REQUESTED_DATA,
+                type: REQUEST_FULFILLED,
                 request: 'untraced api call',
                 data: action,
             }
         }
     )
+
+/*
+    .takeUntil(actions.ofType('FETCH_USER_ABORTED'))
+    // If the ajax request errors, we'll catch it and instead emit a
+    // "FETCH_USER_ERRORED" action with the error info, your
+    // reducer would then be responsible for returning the correct state
+    .catch(error => Observable.of({ type: 'FETCH_USER_ERRORED', error }))
+    .startWith({ type: 'FETCH_USER_PENDING' });
+*/
