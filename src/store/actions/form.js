@@ -1,8 +1,8 @@
 import log from 'log'
-export const SAVE_FORM_FIELD = 'SAVE_FORM_FIELD'
-export const NOT_FINDED_DDD = 'NOT_FINDED_DDD'
-export const WILL_SAVE_FORM_FIELD = 'WILL_SAVE_FORM_FIELD'
-export const WILL_SEND_FORM= 'WILL_SEND_FORM'
+import {
+    WILL_SAVE_FORM_FIELD,
+    WILL_SEND_FORM,
+} from '../const'
 
 export function saveFormField(form, field, value) {
     return {

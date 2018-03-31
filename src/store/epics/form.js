@@ -1,5 +1,9 @@
 import Rx from 'rxjs'
 import * as R from 'ramda'
+
+// import {
+// } from 'store/actions' // call a action for the dispatch from epics
+
 import {
     WILL_SAVE_FORM_FIELD,
     SAVE_FORM_FIELD,
@@ -7,10 +11,12 @@ import {
     REQUESTED_DATA,
     NOT_FINDED_DDD,
     WILL_SEND_FORM,
-} from 'store/actions'
+    POST,
+} from 'store/const'
+
+import { fetchData } from 'utils'
 
 import log from 'log'
-import { request } from 'http';
 
 // Caso tenha um valor tal ativa o outro formulario
 export const openLeadOnNotFinded = (action$, store) => action$.ofType(WILL_SAVE_FORM_FIELD)
@@ -24,22 +30,6 @@ export const openLeadOnNotFinded = (action$, store) => action$.ofType(WILL_SAVE_
         }
     })
 
-const host = process.env.NODE_ENV === 'production' ? '159.65.68.177' : 'localhost:3030'
-const POST = 'POST'
-const fetchData = (url, method, body) => Rx.Observable.ajax({
-    url: `http://${'159.65.68.177'}/api${url}`,
-    method: method,
-    responseType: 'json',
-    crossDomain: true,
-    headers: {
-        'Content-Type': 'application/json',
-        'x-rxjs-is': 'Awesome And Trick >_<"',
-    },
-    body,
-}).map(ajax => ({
-    data: R.path(['response'], ajax),
-    sendedData: body
-}))
 
 export const fetchService = (action$, store) => action$.ofType(WILL_SEND_FORM)
     .debounceTime(500)
@@ -88,25 +78,3 @@ export const fetchService = (action$, store) => action$.ofType(WILL_SEND_FORM)
             }
         }
     )
-/*
-  url: 'https://httpbin.org/post',
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'x-rxjs-is': 'Awesome!'
-  },
-  body: {
-    hello: 'World!',
-  }
-
-  .toArray()
-  .switchMap(requestArray => Rx.Observable.forkJoin(requestArray))
-  .zip(projectIds)
-
-.mergeMap(action =>
-        race(
-        timer(2000).mapTo({ type: OPEN_N_M }),
-        action$.ofType(EPT_CANCEL_OPEN_N_M)
-            .take(1),
-       ),
-*/
