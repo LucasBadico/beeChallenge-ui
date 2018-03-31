@@ -26,7 +26,7 @@ export const openLeadOnNotFinded = (action$, store) => action$.ofType(WILL_SAVE_
 
 const host = process.env.NODE_ENV === 'production' ? '159.65.68.177' : 'localhost:3030'
 const POST = 'POST'
-const fetchData = (body, url, method) => Rx.Observable.ajax({
+const fetchData = (url, method, body) => Rx.Observable.ajax({
     url: `http://${'159.65.68.177'}/api${url}`,
     method: method,
     responseType: 'json',
@@ -38,7 +38,7 @@ const fetchData = (body, url, method) => Rx.Observable.ajax({
     body,
 }).map(ajax => ({
     data: R.path(['response'], ajax),
-    ...(method === POST ? { sendedData: R.path(['request', 'body'], ajax) } : {})
+    sendedData: body
 }))
 
 export const fetchService = (action$, store) => action$.ofType(WILL_SEND_FORM)
@@ -61,15 +61,16 @@ export const fetchService = (action$, store) => action$.ofType(WILL_SEND_FORM)
                 const mins = ['30', '60', '120']
                 return Rx.Observable
                     .from(mins)
-                    .map(min => fetchData(
-                        {
+                    .map(min => {
+                        const dataToSend = {
                             costByMinute,
                             totalTime,
+                            origin,
+                            destination,
                             plan: `FaleMais${min}`,
-                        },
-                        url,
-                        POST,
-                    ))
+                        }
+                        return fetchData(url, POST, dataToSend)
+                    })
                     .toArray()
                     .switchMap(requestArray => Rx.Observable.forkJoin(requestArray))
                     .map(data => ({
