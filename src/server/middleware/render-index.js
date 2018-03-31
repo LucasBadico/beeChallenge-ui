@@ -34,6 +34,7 @@ export default function renderIndex(html, css, assetMap, store) {
       width: 180px; /* plan width = 180 + 20 + 20 + 1 + 1 = 222px */      
       float: left;
       position: relative;
+      min-height: 272px;
     }
     
     #pricing-table #most-popular {
@@ -65,8 +66,7 @@ export default function renderIndex(html, css, assetMap, store) {
     
     #pricing-table h3 {
       font-size: 20px;
-      font-weight: 600;
-      color: #11a9e9 !important;
+      font-weight: 500;
       padding: 20px;
       margin: -20px -20px 50px -20px;
       background-color: #eee;
@@ -75,6 +75,8 @@ export default function renderIndex(html, css, assetMap, store) {
       background-image: -webkit-linear-gradient(#fff, #eee);
       background-image: -o-linear-gradient(#fff, #eee);
       background-image: -ms-linear-gradient(#fff, #eee);
+      font-family: 'RobotoDraft', 'Roboto', sans-serif;
+      color: #666;
       background-image: linear-gradient(#fff, #eee);
     }
     
@@ -107,8 +109,11 @@ export default function renderIndex(html, css, assetMap, store) {
     
     #pricing-table h3 span {
       display: block;
-      font: bold 25px/100px Georgia, Serif;
-      color: #777;
+      font-weight: bold;
+      color: rgb(51, 181, 229);
+      font-family: 'RobotoDraft', 'Roboto', sans-serif;
+      font-size: 30px;
+      line-height: 104px;
       background: #fff;
       border: 5px solid #fff;
       height: 100px;
@@ -120,6 +125,15 @@ export default function renderIndex(html, css, assetMap, store) {
       -moz-box-shadow: 0 5px 20px #ddd inset, 0 3px 0 #999 inset;
       -webkit-box-shadow: 0 5px 20px #ddd inset, 0 3px 0 #999 inset;
       box-shadow: 0 5px 20px #ddd inset, 0 3px 0 #999 inset;
+    }
+    #pricing-table h3 span:before{
+      content: 'R$';
+      position: absolute;
+      color: #11a9e9;
+      font-size: 19px;
+      font-weight: 300;
+      top: 33px;
+      right: 121px;
     }
     
     /* --------------- */
