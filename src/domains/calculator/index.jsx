@@ -11,17 +11,20 @@ import {
     ModuleRow,
     ActionForm,
     Button,
+    Fetch,
 } from 'components'
 
 import { openForm } from 'store/actions'
-import { WILL_OPEN_FORM } from 'store/const'
+import { WILL_OPEN_FORM, GET } from 'store/const'
 
 import Result from './Result'
 import Calc from './Calc'
 import Lead from './Lead'
 import styles from './styles'
 
-export const CalculatorWrapped = ({ buttler, dispatch }) => {
+
+
+export const CalculatorWrapped = ({ dispatch }) => {
     return (
         <div>
             <ModuleRow>
@@ -33,7 +36,10 @@ export const CalculatorWrapped = ({ buttler, dispatch }) => {
                 <ModuleCel width="60%" table>
                     <p>Na BeePhonica você pode falar 30, 60 ou 120 minutos sem pagar nada a mais por isso.</p>
                     <p>Use nossa calculadora para descobrir o quanto você vai economizar.</p>
-                    <Calc />
+                    <Fetch url="/prices/all" method={GET} on='prices-raw'>
+                        <Calc />
+                    </Fetch> 
+                    
                     <Button onClick={() => dispatch(openForm('calculator'))}>Calcule já</Button>
                 </ModuleCel>
             </ModuleRow>   
@@ -49,7 +55,7 @@ CalculatorWrapped.propTypes = {
 }
 
 export const Calculator = connect(
-    ({ buttler }) => ({ buttler }),
+    () => ({}),
     (dispatch) => ({ dispatch })
   )(CalculatorWrapped)
   

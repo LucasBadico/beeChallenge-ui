@@ -8,7 +8,17 @@ import log from 'log'
 import { saveFormField } from 'store/actions'
 import styles from './styles'
 
-export const SelectInputWrapper = ({ dispatch, formState, field, form, ...props }) => {
+export const SelectInputWrapper = ({
+    dispatch,
+    formState,
+    field,
+    form,
+    filter,
+    options,
+    append,
+    ...props,
+}) => {
+
     return (
         <Select
             value={R.path([form, field],formState)}
@@ -16,6 +26,14 @@ export const SelectInputWrapper = ({ dispatch, formState, field, form, ...props 
             onChange={({value}) => dispatch(
                 saveFormField(form, field, value)
             )}
+            options={[
+                ...(
+                    !!filter
+                    ? filter(R.path([form], formState), options)
+                    : options
+                ),
+                append
+            ]}
             {...props}
         />
     )
@@ -32,6 +50,6 @@ SelectInputWrapper.propTypes = {
     field: PropTypes.string.isRequired,
     form: PropTypes.string.isRequired,
     formState: PropTypes.object,
-    options: PropTypes.arrayOf(PropTypes.any)
+    options: PropTypes.any,
 }
   
