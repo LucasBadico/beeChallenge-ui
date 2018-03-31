@@ -1,6 +1,8 @@
 export const POST = 'POST'
+export const GET = 'GET'
 export const OPEN_FORM = 'OPEN_FORM'
 export const CLOSE_FORM = 'CLOSE_FORM'
 export const WILL_OPEN_FORM = 'WILL_OPEN_FORM'
 export const WILL_CLOSE_FORM = 'WILL_CLOSE_FORM'
 export const REQUESTED_DATA = 'REQUESTED_DATA'
+export const WILL_REQUESTED_DATA = 'WILL_REQUESTED_DATA'

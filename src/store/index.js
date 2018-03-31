@@ -9,15 +9,16 @@ import {
   buttlerWillOpenForm,
   buttlerWillCloseForm,
   buttlerShowTable,
-  fetchService,
+  sendFormToService,
+  handlePrices,
 } from './epics'
 
 const rootEpic = combineEpics(
   openLeadOnNotFinded,
   buttlerWillOpenForm,
   buttlerWillCloseForm,
-  fetchService,
-  // buttlerShowTable,
+  sendFormToService,
+  handlePrices,
 )
 
 const epicMiddleware = createEpicMiddleware(rootEpic)
@@ -32,8 +33,6 @@ export function createReducer(initialState, actionHandlers) {
   }
 }
 
-// const composeEnhancers = window ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose : compose;
-
 export default class Store {
   constructor(history, initialState = {}) {
     this.data = createStore(
@@ -42,12 +41,10 @@ export default class Store {
         routing: routerReducer,
       }),
       initialState,
-      // composeEnhancers(
         applyMiddleware(
           epicMiddleware,
           routerMiddleware(history),
         ),
-      // )
     )
 }
 }

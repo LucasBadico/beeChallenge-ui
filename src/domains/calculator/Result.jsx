@@ -72,6 +72,7 @@ const ResultWrapped = ({ items, buttler }) => {
                 const excededTime = parseInt(totalTime, 10) - freeTime
                 const minuteCost = value/parseInt(totalTime, 10)
                 return ({
+                    key: plan,
                     title: `#${plan}`,
                     value: numeral(
                         value <= 0 ? 0 : value

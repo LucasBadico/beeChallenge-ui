@@ -4,11 +4,39 @@ import {
     WILL_OPEN_FORM,
     OPEN_FORM,
     WILL_CLOSE_FORM,
+    REQUESTED_DATA,
+    WILL_REQUESTED_DATA,
     CLOSE_FORM,
 } from '../const'
 
 import log from 'log'
 
+export const handlePrices = (action$, store) => action$.ofType(WILL_REQUESTED_DATA)
+    .map(action => {
+        if (action.on === 'prices-raw') {
+            const prices = R.pipe(
+                R.path(['data']),
+                R.reduce((acc, {origin, destination, costByMinute}) => ({
+                    ...acc,
+                    [origin]:{
+                        ...(acc[origin] || {}),
+                        [destination]: costByMinute,
+                    }
+                }), {}),
+            )(action.data)
+
+            return {
+                type: REQUESTED_DATA,
+                on: 'prices',
+                url: action.url,
+                data: prices
+            }
+        }
+        return {
+            ...action,
+            type: REQUESTED_DATA,
+        }
+    })
 
 
 export const buttlerWillOpenForm = (action$, store) => action$.ofType(WILL_OPEN_FORM)

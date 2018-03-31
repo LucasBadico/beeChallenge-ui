@@ -39,8 +39,8 @@ export default createReducer(initial, {
     }),
     [REQUESTED_DATA]: (state, action) => ({
         ...state,
-        [action.form]: [
-        ...(R.isNil(state[action.form]) ? [] : state[action.form]),
+        [action.on]: [
+        ...(R.isNil(state[action.on]) ? [] : state[action.on]),
         {
             url: action.url,
             data: action.data,

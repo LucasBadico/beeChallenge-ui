@@ -31,7 +31,7 @@ export const openLeadOnNotFinded = (action$, store) => action$.ofType(WILL_SAVE_
     })
 
 
-export const fetchService = (action$, store) => action$.ofType(WILL_SEND_FORM)
+export const sendFormToService = (action$, store) => action$.ofType(WILL_SEND_FORM)
     .debounceTime(500)
     .mergeMap(
         action => {
@@ -46,11 +46,26 @@ export const fetchService = (action$, store) => action$.ofType(WILL_SEND_FORM)
                     destination,
                     totalTime,
                 } = state.form[action.form]
-                const costByMinute = R.last(state.buttler.price)[origin][destination]
+                log(
+                    R.path(['buttler', 'prices'], state),
+                    R.path(['data'], R.last(R.path(['buttler', 'prices'], state))),
+                    state,
+                )
+                const priceList = R.pipe(
+                    R.path(['buttler', 'prices']),
+                    R.last,
+                    R.path(['data'])
+                )(state)
 
-                const mins = ['30', '60', '120']
+                const costByMinute = R.path([origin, destination], priceList)
+                log({
+                    priceList,
+                    origin,
+                    destination,
+                    costByMinute,
+                })
                 return Rx.Observable
-                    .from(mins)
+                    .from(['30', '60', '120'])
                     .map(min => {
                         const dataToSend = {
                             costByMinute,
@@ -65,7 +80,7 @@ export const fetchService = (action$, store) => action$.ofType(WILL_SEND_FORM)
                     .switchMap(requestArray => Rx.Observable.forkJoin(requestArray))
                     .map(data => ({
                         type: REQUESTED_DATA,
-                        form: 'calculator',
+                        on: 'calculator',
                         url,
                         data,
                     }))
