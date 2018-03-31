@@ -5,20 +5,14 @@ import {
     OPEN_FORM,
     WILL_CLOSE_FORM,
     CLOSE_FORM,
-} from 'store/actions'
+} from '../const'
 
 import log from 'log'
-import { race } from 'rxjs/observable/race'
-import { timer } from 'rxjs/observable/timer'
-import { reduce } from 'rxjs/operator/reduce'
-import { merge } from 'rxjs/operator/merge'
-import { delay } from 'rxjs/operator/delay'
-import { mapTo } from 'rxjs/operators'
+
 
 
 export const buttlerWillOpenForm = (action$, store) => action$.ofType(WILL_OPEN_FORM)
    .map(action => {
-       // put here some logic before open form
        const formToOpen = action.form
        return ({ type: OPEN_FORM, form: formToOpen })
     })
@@ -36,12 +30,3 @@ export const buttlerShowTable = (action$, store) => action$.ofType(WILL_CLOSE_FO
     const formToClose = action.form
     return ({ type: OPEN_FORM, form: formToClose })
  })
-
-/*
-.mergeMap(action =>
-        race(
-        timer(2000).mapTo({ type: OPEN_N_M }),
-        action$.ofType(EPT_CANCEL_OPEN_N_M)
-            .take(1),
-       ),
-*/

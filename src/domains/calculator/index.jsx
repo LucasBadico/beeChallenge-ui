@@ -14,6 +14,7 @@ import {
 } from 'components'
 
 import { openForm } from 'store/actions'
+import { WILL_OPEN_FORM } from 'store/const'
 
 import Result from './Result'
 import Calc from './Calc'

@@ -1,5 +1,5 @@
 import { createReducer } from 'store'
-import { SAVE_FORM_FIELD  } from 'store/actions'
+import { SAVE_FORM_FIELD  } from 'store/const'
 import log from 'log'
 const initial = {}
 
