@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { css } from 'aphrodite/no-important'
 import Select from 'react-select'
 import log from 'log'
+import numeral from 'numeral'
 
 import {
     TableCel,
@@ -12,6 +13,21 @@ import {
     TitleModule,
 } from 'components'
 import styles from './styles'
+
+
+// load a locale
+numeral.register('locale', 'br', {
+    delimiters: {
+        thousands: ' ',
+        decimal: ','
+    },
+    currency: {
+        symbol: ''
+    }
+});
+
+// switch between locales
+numeral.locale('br');
 
 const ResultWrapped = ({ items, buttler }) => {
     const results = R.path(['calculator'], buttler)
@@ -22,14 +38,15 @@ const ResultWrapped = ({ items, buttler }) => {
 
     const defaultValue = R.last(buttler.price)[origin][destination]
     const defaultCost = defaultValue * parseInt(totalTime, 10)
+
     const plans = R.reduce((acc, item) => ({
         ...acc,
         [R.path(['sendedData', 'plan'], item)]: R.path(['data'], item)
-    }), {  }, data)
+    }), {}, data)
 
     return (
     <TableRow>
-        <TitleModule>Resultados</TitleModule>
+        <TitleModule><b>Resultados</b></TitleModule>
         <p>Confira os resultados e confirme, com <b>BeePhonica</b> você ganha sempre!</p>
         <p>
             Você pesquisou por uma ligação do <b>DDD {origin}</b>
@@ -38,9 +55,15 @@ const ResultWrapped = ({ items, buttler }) => {
         </p>
         <TableCel
             title="#Padrão"
-            value={defaultCost}
+            value={numeral(defaultCost).format('$0.00')}
             subitems={[
-                <span><b>R${defaultValue}</b> preço do minuto</span>,
+                <span>
+                    <b>
+                        {numeral(
+                            defaultValue <= 0 ? 0 : defaultValue
+                        ).format('$0.00')}
+                    </b> preço do minuto
+                </span>,
             ]}
         />
         {R.pipe(
@@ -50,10 +73,22 @@ const ResultWrapped = ({ items, buttler }) => {
                 const minuteCost = value/parseInt(totalTime, 10)
                 return ({
                     title: `#${plan}`,
-                    value,
+                    value: numeral(
+                        value <= 0 ? 0 : value
+                    ).format('$0.00'),
                     subitems: [
-                        <span><b>R${minuteCost <= 0 ? '0,00' : minuteCost}</b> preço do minuto final</span>,
-                        <span><b>{excededTime <= 0 ? '0,00' : excededTime}</b> tempo excedido do plano </span>,
+                        <span>
+                            <b>
+                                {numeral(
+                                    minuteCost <= 0 ? 0 : minuteCost
+                                ).format('$0.00')}
+                            </b> preço do minuto final
+                        </span>,
+                        <span>
+                            <b>
+                                {excededTime <= 0 ? 0 : excededTime}
+                            </b> minutos excedido da franquia
+                        </span>,
                     ],
                 })
             }),
