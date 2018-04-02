@@ -33,17 +33,12 @@ const ResultWrapped = ({ items, buttler }) => {
     const results = R.path(['calculator'], buttler)
     if (R.isNil(results) || R.isEmpty(results)) return <span />
 
+    log({results})
     const { data } = R.last(results)
     const { origin, destination, totalTime } = R.path([0, 'sendedData'], data)
-
-    const defaultValue = R.last(buttler.price)[origin][destination]
-    const defaultCost = defaultValue * parseInt(totalTime, 10)
-
-    const plans = R.reduce((acc, item) => ({
-        ...acc,
-        [R.path(['sendedData', 'plan'], item)]: R.path(['data'], item)
-    }), {}, data)
-
+    const defaultCostByMinute = R.last(buttler.price)[origin][destination]
+    const defaultTotalCost = defaultCostByMinute * parseInt(totalTime, 10)
+    const withFaleMais = R.path(['data'], data)
     return (
     <TableRow>
         <TitleModule><b>Resultados</b></TitleModule>
@@ -54,28 +49,30 @@ const ResultWrapped = ({ items, buttler }) => {
             com a duração de <b>{totalTime} minutos</b>
         </p>
         <TableCel
-            title="#Padrão"
-            value={numeral(defaultCost).format('$0.00')}
+            title="Sem #FaleMais"
+            value={numeral(defaultTotalCost).format('$0.00')}
             subitems={[
                 <span>
                     <b>
                         {numeral(
-                            defaultValue <= 0 ? 0 : defaultValue
+                            defaultCostByMinute <= 0 ? 0 : defaultCostByMinute
                         ).format('$0.00')}
                     </b> preço do minuto
                 </span>,
             ]}
         />
         {R.pipe(
-            R.mapObjIndexed((value, plan) => {
-                const freeTime = parseInt(plan.match(/(\d+)/)[0], 10)
-                const excededTime = parseInt(totalTime, 10) - freeTime
-                const minuteCost = value/parseInt(totalTime, 10)
+            R.map(({
+                cost,
+                freeTime,
+                notFreeTime,
+            }) => {
+                const minuteCost = cost/(freeTime + notFreeTime)
                 return ({
                     key: plan,
-                    title: `#${plan}`,
+                    title: `#$FaleMais{freeTime}`,
                     value: numeral(
-                        value <= 0 ? 0 : value
+                        cost <= 0 ? 0 : cost
                     ).format('$0.00'),
                     subitems: [
                         <span>
@@ -87,15 +84,14 @@ const ResultWrapped = ({ items, buttler }) => {
                         </span>,
                         <span>
                             <b>
-                                {excededTime <= 0 ? 0 : excededTime}
+                                {notFreeTime <= 0 ? 0 : notFreeTime}
                             </b> minutos excedido da franquia
                         </span>,
                     ],
                 })
             }),
-            R.values,
             R.map(props =>  <TableCel {...props} />),
-        )(plans)}
+        )(withFaleMais)}
     </TableRow>
 )
 }
