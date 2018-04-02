@@ -32,9 +32,14 @@ numeral.locale('br');
 const ResultWrapped = ({ items, buttler }) => {
     const results = R.path(['calculator'], buttler)
     if (R.isNil(results) || R.isEmpty(results)) return <span />
+
     const { data } = R.last(results)
-    const { origin, destination, totalTime } = R.path(['sendedData'], data)
-    const defaultCostByMinute = R.last(buttler.prices)[origin][destination]
+    const { origin, destination, totalTime } = R.path(['sendedData', 0], data)
+    const defaultCostByMinute = R.pipe(
+        R.path(['prices']),
+        R.last,
+        R.path(['data', origin, destination])
+    )(buttler)
     const defaultTotalCost = defaultCostByMinute * parseInt(totalTime, 10)
     const withFaleMais = R.path(['data'], data)
     return (
