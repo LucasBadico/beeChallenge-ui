@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import log from 'log'
 
 const ActionWrapped = ({ component, validProps, validate, form }) => (
-    validate(form) ? component(validProps) : component({ disabled: true, style: { cursor: 'not-allowed' } })
+    log(validate(form)),validate(form) ? component(validProps) : component({ disabled: true, style: { cursor: 'not-allowed' } })
 )
 
 export const ActionForm = connect(

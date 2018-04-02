@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import * as R from 'ramda'
 import PropTypes from 'prop-types'
 import { css } from 'aphrodite/no-important'
 import Select from 'react-select'
@@ -10,10 +11,9 @@ import {
     Button,
     TextInput,
 } from 'components'
+
 import styles from './styles'
-import {
-    closeForm,
-} from 'store/actions'
+import { closeForm, sendForm } from 'store/actions'
 
 const LeadWrapped = ({ dispatch, buttler }) => {
     const FORM = 'lead'
@@ -48,13 +48,21 @@ const LeadWrapped = ({ dispatch, buttler }) => {
         </div> */}
         <div>
             <h4 className={css(styles.h4)}> Seu Nome </h4>
-            <TextInput form={FORM} field="name" type="text" placeholder="Apenas agradecemos a preferência"/>
+            <TextInput form={FORM} field="fullName" type="text" placeholder="Apenas agradecemos a preferência"/>
         </div>
         <p className={css(styles.hint)}>* Preencha todos os campos.</p>
         <ActionForm
-            validate={() => true}
-            component={action => <Button onClick={action}>Enviar Dados</Button>}
-            action={console.log}
+            validate={
+                (formState) => {
+                    if (R.isNil(formState[FORM])) return false
+                    const {
+                        [FORM]: { email, fullName, origin, destination }
+                    } = formState
+                    return ![email, fullName, origin, destination].some(R.isNil)
+                }
+            }
+            validProps={{ onClick: () => dispatch(sendForm(FORM)) }}
+            component={props => <Button {...props}>Enviar Dados</Button>}
         />
     </ModuleCel> 
 )
