@@ -17,8 +17,9 @@ import {
 import {
     closeForm,
     sendForm,
-    NOT_FINDED_DDD,
 } from 'store/actions'
+
+import { NOT_FINDED_DDD } from 'store/const'
 
 import styles from './styles'
 
@@ -125,7 +126,7 @@ const CalcWrapped = ({ buttler, dispatch }) => {
 
 const Calc = connect(
     ({ buttler }) => ({ buttler }),
-    (dispatch) => ({ dispatch })
+    dispatch => ({ dispatch })
   )(CalcWrapped)
 
 export default Calc

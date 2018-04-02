@@ -42,10 +42,10 @@ const LeadWrapped = ({ dispatch, buttler }) => {
             <h4 className={css(styles.h4)}> Deixe seu email </h4>
             <TextInput form={FORM} field="email" type="email" placeholder="Não enviaremos span, prometo"/>
         </div>
-        <div>
+        {/* <div>
             <h4 className={css(styles.h4)}> Seu telefone </h4>
             <TextInput form={FORM} field="phone" type="tel" placeholder="Nem sms, dupla promessa"/>
-        </div>
+        </div> */}
         <div>
             <h4 className={css(styles.h4)}> Seu Nome </h4>
             <TextInput form={FORM} field="name" type="text" placeholder="Apenas agradecemos a preferência"/>

@@ -21,7 +21,8 @@ import log from 'log'
 // Caso tenha um valor tal ativa o outro formulario
 export const openLeadOnNotFinded = (action$, store) => action$.ofType(WILL_SAVE_FORM_FIELD)
     .map(action => {
-        if (action.value === NOT_FINDED_DDD && action.form === 'calculator' ) {
+        if (action.value === NOT_FINDED_DDD && action.form === 'calculator') {
+            log('LEAD!!')
             return ({ type: OPEN_FORM, form: 'lead' })
         }
         return {
@@ -46,11 +47,7 @@ export const sendFormToService = (action$, store) => action$.ofType(WILL_SEND_FO
                     destination,
                     totalTime,
                 } = state.form[action.form]
-                log(
-                    R.path(['buttler', 'prices'], state),
-                    R.path(['data'], R.last(R.path(['buttler', 'prices'], state))),
-                    state,
-                )
+        
                 const priceList = R.pipe(
                     R.path(['buttler', 'prices']),
                     R.last,
@@ -58,12 +55,7 @@ export const sendFormToService = (action$, store) => action$.ofType(WILL_SEND_FO
                 )(state)
 
                 const costByMinute = R.path([origin, destination], priceList)
-                log({
-                    priceList,
-                    origin,
-                    destination,
-                    costByMinute,
-                })
+
                 return Rx.Observable
                     .from(['30', '60', '120'])
                     .map(min => {
@@ -81,6 +73,22 @@ export const sendFormToService = (action$, store) => action$.ofType(WILL_SEND_FO
                     .map(data => ({
                         type: REQUEST_FULFILLED,
                         on: 'calculator',
+                        url,
+                        data,
+                    }))
+            }
+
+            if (action.form === 'lead') {
+                // using the form name we can resolve all api calls,
+                const url = '/lead/add-demand'
+
+                // data needed to send
+                const { fullName, email, demand } = state.form[action.form]
+
+                return fetchData(url, POST, { fullName, email, demand })
+                    .map(data => ({
+                        type: REQUEST_FULFILLED,
+                        on: 'lead',
                         url,
                         data,
                     }))

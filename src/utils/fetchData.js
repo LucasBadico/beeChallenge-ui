@@ -1,9 +1,7 @@
 import Rx from 'rxjs'
 import * as R from 'ramda'
 import log from 'log'
-import {
-    POST,
-} from 'store/const'
+import { POST } from 'store/const'
 
 const host = process.env.NODE_ENV === 'production' ? '159.65.68.177' : 'localhost:3030'
 
@@ -21,7 +19,7 @@ const host = process.env.NODE_ENV === 'production' ? '159.65.68.177' : 'localhos
   )
 */
 
-export const fetchData = (url, method, body) => (log(method),Rx.Observable.ajax({
+export const fetchData = (url, method, body) => Rx.Observable.ajax({
     url: `http://${'159.65.68.177'}/api${url}`,
     method: method,
     responseType: 'json',
@@ -34,4 +32,4 @@ export const fetchData = (url, method, body) => (log(method),Rx.Observable.ajax(
     data: R.path(['response'], ajax),
     sendedData: body
 }))
-)
+// TODO Add a swithMap here to retry
