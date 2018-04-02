@@ -28,8 +28,7 @@ export const fetchData = (url, method, body) => Rx.Observable.ajax({
         'Content-Type': 'text/plain'
     },
     body: JSON.stringify(body),
-})
-.map(ajax => ({
+}).map(ajax => ({
     data: R.path(['response'], ajax),
     sendedData: body
 }))
