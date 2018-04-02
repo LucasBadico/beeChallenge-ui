@@ -10,6 +10,7 @@ import {
   buttlerWillCloseForm,
   buttlerShowTable,
   sendFormToService,
+  buttlerWillShowPendingMessage,
   handlePrices,
 } from './epics'
 
@@ -17,7 +18,9 @@ const rootEpic = combineEpics(
   openLeadOnNotFinded,
   buttlerWillOpenForm,
   buttlerWillCloseForm,
+  // buttlerShowTable,
   sendFormToService,
+  // buttlerWillShowPendingMessage,
   handlePrices,
 )
 

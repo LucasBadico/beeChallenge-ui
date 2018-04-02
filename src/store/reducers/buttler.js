@@ -5,11 +5,13 @@ import {
     OPEN_FORM,
     CLOSE_FORM,
     REQUEST_FULFILLED,
+    SHOW_MESSAGE,
 } from 'store/const'
 import log from 'log'
 
 const initial = {
     forms: {},
+    message: {},
     price: [
             {
             '#origin':{
@@ -35,6 +37,17 @@ export default createReducer(initial, {
         forms: {
             ...state.forms,
             [action.form]: false,
+        },
+        message: {
+            ...state.forms,
+            [action.form]: undefined,
+        }
+    }),
+    [SHOW_MESSAGE]: (state, action) => ({
+        ...state,
+        message: {
+            ...state.message,
+            [action.form]: action.message,
         }
     }),
     [REQUEST_FULFILLED]: (state, action) => ({
@@ -46,4 +59,5 @@ export default createReducer(initial, {
             data: action.data,
         }]
     }),
+    
   })

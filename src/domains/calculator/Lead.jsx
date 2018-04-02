@@ -18,6 +18,16 @@ import { closeForm, sendForm } from 'store/actions'
 const LeadWrapped = ({ dispatch, buttler }) => {
     const FORM = 'lead'
     if (!buttler.forms[FORM]) return <span className="Lead_PlaceHolder" />
+    if (buttler.message[FORM]) {
+        return (
+            <span className="Calc_Content_PlaceHolder">
+                <h3> Pressando ...</h3>
+                <p>
+                    {buttler.message[FORM]}
+                </p>
+            </span>
+        )
+    }
     return (
     <ModuleCel
         inline
