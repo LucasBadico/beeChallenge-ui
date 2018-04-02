@@ -39,7 +39,7 @@ export const sendFormToService = (action$, store) => action$.ofType(WILL_SEND_FO
             const state = store.getState()
             if (action.form === 'calculator') {
                 // using the form name we can resolve all api calls,
-                const url = '/calculator/fale-mais'
+                const url = '/calculator/fale-mais-list'
 
                 // data needed to send
                 const {
@@ -66,10 +66,10 @@ export const sendFormToService = (action$, store) => action$.ofType(WILL_SEND_FO
                             destination,
                             plan: `FaleMais${min}`,
                         }
-                        return fetchData(url, POST, dataToSend)
+                        return dataToSend
                     })
                     .toArray()
-                    .switchMap(requestArray => Rx.Observable.forkJoin(requestArray))
+                    .switchMap(requestArray => fetchData(url, POST, requestArray))
                     .map(data => ({
                         type: REQUEST_FULFILLED,
                         on: 'calculator',
