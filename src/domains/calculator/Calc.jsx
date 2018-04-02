@@ -113,7 +113,15 @@ const CalcWrapped = ({ buttler, dispatch }) => {
                 </div>
                 <p className={css(styles.hint)}>* Preencha todos os campos.</p>
                 <ActionForm
-                    validate={(form) => true}
+                    validate={
+                        (formState) => {
+                            if (R.isNil(formState[FORM])) return false
+                            const {
+                                [FORM]: { totalTime, origin, destination }
+                            } = formState
+                            return ![totalTime, origin, destination].some(R.isNil)
+                        }
+                    }
                     component={props => <Button {...props}>Calcular</Button>}
                     validProps={{ onClick: () => dispatch(sendForm(FORM)) }}
                 />
