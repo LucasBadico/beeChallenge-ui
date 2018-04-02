@@ -62,16 +62,16 @@ const CalcWrapped = ({ buttler, dispatch }) => {
         )(prices)
     }
 
-    if (buttler.message[FORM]) {
-        return (
-            <span className="Calc_Content_PlaceHolder">
-                <h3> Pressando ...</h3>
-                <p>
-                    {buttler.message[FORM]}
-                </p>
-            </span>
-        )
-    }
+    // if (buttler.message[FORM]) {
+    //     return (
+    //         <span className="Calc_Content_PlaceHolder">
+    //             <h3> Processando ...</h3>
+    //             <p>
+    //                 {buttler.message[FORM]}
+    //             </p>
+    //         </span>
+    //     )
+    // }
     return (
     <ModuleCel
         inline
